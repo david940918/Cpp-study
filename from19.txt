@@ -1,0 +1,182 @@
+bool type
+true(!0, represented by 1), false(0)
+
+manipulator 
+what if you want to print bool type as a string, use this!
+std::endl also manipulator.
+
+bool found = false;
+cout << std::boolalpha << found << std::endl;
+
+then print is 'false'.
+---------------------------------------------------------------
+Float
+
+77000 = 7.7E4; (7.7 x 10^4) (7.7 multiply by power 4)
+float라고 불리는 이유는
+예를 들어 7.7에서 정점을 곱하는 자릿수만큼 뒤로 올려보내기 때문이다.
+7.7 x 10000이면 점을 4번 올리겠지.
+
+float = least trust worthy
+
+ex)
+float a = 10.0 / 3;
+a = a * 10000000000000000
+
+cout << std::fixed << a << std::endl;
+std::fixed also manipulator,
+show some unexpected result, which is why float is not trust-worthy.
+
+according to float.h :: FLT_DIG, 6 digit is trust-worthy.
+DBL_DIG, 15; LDBL_DIG, 18;
+----------------------------------------------------------------
+Constant
+
+symbolic
+
+const int x = 5;
+Macro
+Enum : 열거형은 정수형 상수를 여러개 선언하기 쉽게 해준다.
+enum DayofWeek{
+	s = 0, c, d, e, f};
+
+Which one to choose, it depends on you.
+-----------------------------------------------------------------
+numeric function
+sqrt(-25) = nan ( not a number)
+pow(9, 999) = inf,
+pow(-9, 999) = -inf
+remainder(10, 3) = 1
+	what if 10 % 3.25, we expect .25 but it doesnt work
+remainder(10, 3.25) = 0.25
+
+fmax(10, 3.25) = 10 float max
+fmin
+
+ceil = 올림
+floor = 내림
+trunc = 소수점 제거
+	it crops up( happens unexpectedly)
+round = 반올림
+------------------------------------------------------------------
+String
+
+1. Cstring
+2. String Class : you need to learn this.
+
+// nature C
+	// "Caleb\0"
+	char name[] = "Caleb";
+	// also you cant reassign this by other char
+	// name = "t" b/c its pointer
+
+	// 19. Escape sequence
+
+	foo();
+
+	std::string greeting = "hello";
+	// if you didnt init value cpp init it by ""
+
+	// print char
+	std::cout << greeting[0] << std::endl;
+
+	// string concat
+	std::string complete_greeting = greeting + " there";
+	complete_greeting += "!";
+	std::cout << complete_greeting << std::endl;
+
+	// length
+	// func comes from class, you can call it by '.'
+	// which so called, method == member function
+	std::cout << complete_greeting.length() << std::endl;
+
+	// input
+	// object realize the end of line by white space
+	// if you enter "hello there"
+	// result will be "hello"
+	std::string greet;
+	std::cin >> greet;
+	std::cout << greet;
+
+	// so real input what demands will shown like this
+	std::string greet1;
+	// cin.getline();
+	getline(std::cin, greet1);
+	std::cout << greet1 << std::endl;
+
+	// string modifier method
+	// length
+	// size
+	std::string test = "test";
+	// append
+	test.append(" for me");
+	// insert
+	test.insert(2, "a");
+	// erase
+	test.erase(test.length() - 1);
+	// pop_back
+	// replace
+	
+	std::cout << greet1 << std::endl;
+--------------------------------------------------------------------
+Literal (similar with constants)
+
+// c++ 11
+// g++ test.cpp -std=c++11
+auto x = 5U;	// unsigned int
+	auto, which set type of 'x', according to the value 
+
+U = unsigned int
+UL = unsigned long
+ULL
+1.0F = float
+1.0 = double
+1.0L = long double
+---------------------------------------------------------------------
+Hexadecimal and Octo
+
+Hexa = 16
+Octo = 8
+
+int number = 30
+// hexa
+0x30 = 48
+// octo
+030 = 24
+
+std::cout << std::hex / std::oct << number << std::endl;
+// manipulator
+change number into hex or oct
+---------------------------------------------------------------------
+operator n operands
+연산자 우선순위 operator precedence and associativity
+x = 10;
+(y = x) = 100;
+
+y = 100; x = 10;
+---------------------------------------------------------------------
+Control Flow(흐름제어)
+
+concept : branching & looping
+
+branching : do conditions, based on result => if, switch
+looping : repeat same thing => while, for, do-while
+----------------------------------------------------------------------
+Enum Class (C++ 11)
+
+enum class Season { spring, summer, fall, winter };
+Season now = Season::winter;
+----------------------------------------------------------------------
+Loop
+
+I  : initialize
+C : condition
+U : update
+
+while : loop happens first
+for : similar with while, but ICU's position is different
+do-while : code happens at least once
+----------------------------------------------------------------------
+Condition operator
+
+int points = guess == answer ? 10 : 0;
