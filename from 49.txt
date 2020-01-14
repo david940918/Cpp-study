@@ -1,0 +1,108 @@
+gcc -o myGame ./a.out
+
+---------------------------------------------------------------------------
+Vector (C++ 11)
+Check more stuffs about vector on geeksforgeeks.org
+
+Collection (dynamic array)
+DS have lots of modifiers
+
+diff b/w array is...
+1. size is dynamic
+
+std::vector<type> name = {12, 13};
+
+name.push_back(100);
+	IF you add a element which beyond the array's memory size,
+	it reallocate the memory size to contain the new element.
+	so old array mem's data will copied into new array mem.
+
+name[2] will be 100.
+
+unlike array, vectors know their size.
+name.size()
+
+you can select last one by name[ name.size() - 1 ]
+
+why we use < > this?
+
+its part of Standard Template Library. ( in other lang, so called Generic. )
+it templatize the data structure. Which means that programmers can easily understand
+the DS's type, what they are dealing with.
+
+---------------------------------------------------------------------------------------------
+STL Array
+works as array but similar to vector
+
+std::array<int, 5>
+	type, size 
+
+templatized array is static but they remember its length.
+
+array is passed by reference, vector is passed by value(copied).
+STL array passed by value.
+
+acts like array but have vector's capability.
+
+만약 함수에 객체를 참조자로 넘겨주고 싶다면
+
+void print_array(std::array<int, 20> & data) 라고 하면된다.
+&가 이를 도와준다.
+
+C언어에서는 본 적 없다.
+----------------------------------------------------------------------------------------------
+C++의 reference
+
+원래 C에서의 reference는
+void foo(int *a)이면
+
+foo(&something) 이런 식으로 전달해주었다.
+
+이 경우 a는 something을 참조하는 것이다.
+
+그러나 C++에서는
+
+'참조형'이라는 것이 있어 선언과 동시에 초기화 해줄 때 &를 사용한다.
+
+int value = 5;
+int& ref = value;
+이렇게 하면 ref는 value를 참조하게 된다. 반드시 선언과 동시에 초기화해야 한다.
+
+	-null은 참조 불가.
+	-non-const 값에 대한 참조는 non-const 값으로만 초기화 가능.
+	-const 값 또는 value로 초기화 불가.
+	-초기화 된 후에는 다른 변수 참조를 위해 변경할 수 없다.
+
+이러한 참조형은 C++에서 함수 매개변수로 많이 사용한다.
+C에서 포인터로 원본을 변경하였듯 마찬가지로 가능하다.
+
+참조형의 다른 장점은 네스팅된 데이터에 지름길을 뚫듯 쉽게 접근할 수 있다는 것이다.
+
+구조체 안의 구조체의 데이터 int value1에 접근하고 싶다면,
+
+int& ref = struct1. struct2. value1;
+이라고 하면 이후부터는 ref = 5 이런 식으로 수정 가능하다.
+
+객체를 매개변수로 넘길 때 pass by value는 데이터 비용이 크다. copy해야 하므로.
+아예 새로운 인스턴스를 함수에 넘기면서 만들게 되는거다.
+reference를 사용하도록 하자.
+
+***참고 JAVA에는 pass-by-reference라는 개념이 없다. 모든 것이 pass-by-value이다.
+이유인즉슨, 자바에서는 객체를 생성할 때부터 애초에 포인터로 생성된다.
+그러므로 함수에 넘길 때도 처음부터 주소로 넘긴다. 주소가 곧 value인 것이다.
+그러므로 주소의 주소(value of reference)를 넘길 필요가 없다.
+pass-by-reference도 필요없다.
+
+Dog myDog;
+Dog myDog = new Dog("Rover");
+foo(myDog);
+
+public void foo(Dog someDog) {
+    someDog.setName("Max");     // AAA
+    someDog = new Dog("Fifi");  // BBB
+    someDog.setName("Rowlf");   // CCC
+}
+
+main의 강아지는 AAA이다. 이름만 Max로 바뀐다.
+하지만 BBB부터는? 다른 강아지이다. 그리고 이 강아지는 함수가 사라지면 사라진다.
+----------------------------------------------------------------------------------------------

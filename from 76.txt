@@ -1,0 +1,253 @@
+namespace
+
+avoiding naming conflict
+
+std :: string ( string belongs to the std )
+
+creating our own namespace!!
+
+-usage
+namespace myNamespace{ }
+-why we use
+	1) group common functionality
+	2) group a particular company project
+	3) classifying / categories
+
+using namespace myNamespace; increases the risk of conflict. recommend not to use this.
+
+you can use this on source / header code. 
+-------------------------------------------------------------------------------------------------
+Function Templates(generic) : template<typename T>
+
+it might can save some overloading functions
+
+void swap(T &x, T &y), templatized function
+{
+	T temp = x;
+}
+*remember, array cant be assigned into another string
+-------------------------------------------------------------------------------------------------
+OOP(similar with structs, but it is smaller)
+
+why? 
+
+structs,
+members,
+encapsulation,
+inheritence,
+polymorphism
+-------------------------------------------------------------------------------------------------
+Structs
+
+typedef struct _STRUCT
+{
+} STRUCT;
+
+both has passbyvalue, method, data member, inheritence
+
+diff b/w class :
+	use class for larger things
+	default access modifier
+
+<access modifier>
+public : can be access on object (structs by default public)
+private : can be access only in class, cant use on object (class by default private)
+protected
+
+by convention in C++,
+struct often use them Plain Odd Data structs( PODS ),
+you can contain some method on there but in general just use store data.
+-------------------------------------------------------------------------------------------------
+Class(a cookie-cutter)
+
+class - (instatiation) - objects
+
+다른 언어에서는
+	User user1 = new User();로 생성자를 호출한다.
+하지만 C++은 그렇지 않다.
+	User user1; 
+이거면 자동으로 생성자를 호출한다.
+
+class User
+{
+	User( );
+	speak( );
+	jump( );
+}
+
+operator(연산자) 오버로딩도 가능하다.
+예를 들어, user1 == user2의 기준 등을 내가 마음대로 선택 가능하다.
+
+static member, associate with class.
+static int count_objects;
+--------------------------------------------------------------------------------------------------
+Constructor, special method which called when instatiation
+
+constructor implicitly created.
+
+	exact same name of class
+	no return type and return
+
+you can custom constructor by parameter, overloading or overridding
+if we customed our constructor, default constructor is gonna disabled.
+this is because, to enforce the user by generate object on specific way.
+way to use the default is just define explicitly.
+
+Destructor, work same, just work at the time object destroyed.
+
+~Classname( ) { code }
+--------------------------------------------------------------------------------------------------
+Encapsulation
+
+example : car
+driver doesnt need to understand details of the car,
+just couple of interface. 
+
+	abstraction, you dont have to know everything
+	control, what users can do in class more appropriate way
+
+use this by
+
+	access modifier
+	getter and setter
+
+why? 
+그냥 퍼블릭에 변수 두고 할당해도 되는데... 이게 encapsulation의 목적. 
+값을 클래스에 할당할 때, 만든 사람이 의도한대로 할당되도록 조건을 부여할 수 있기도하다.
+실수를 최소화 시키거나, 적절한 값만 받게도 할 수 있다. 추가적인 보호 장치인 것이다.
+--------------------------------------------------------------------------------------------------
+Static member data
+
+*주의 : static은 값을 직접적으로 할당할 수 없다.
+그러므로 클래스 바깥에서 값을 할당해야 한다.
+	class USER 
+	{ 
+		static int user_count; 
+		......		
+	}
+
+	int USER::user_count = 0;
+
+왜 그럴까?
+위의 클래스의 메모리가 실제로 할당되는 것은 instantiation이 될 때이다.
+즉 object가 만들어질 때이다. 그 때 클래스 내부의 데이터가 전부 메모리를 가지게 된다.
+그런데 static은 클래스의 데이터이다.
+클래스 내부에 선언한 것만으로는 메모리가 할당되어질 수 없으므로,
+외부에서 값을 할당하여 static 데이터들이 메모리를 가지게 한 것이다.
+--------------------------------------------------------------------------------------------------
+Operator Overloading
+
+we can define what operator means on other stuffs.
+	a + b : func a (b)
+	
+	type operator + (type x)
+	{
+		return ~;
+	}
+
++, == 등의 연산자 말고
+
+출력 기호를 오버로딩은 어케할까? << >>
+이는 기존 연산자 오버로딩보다 까다롭다. 왜냐하면 연산자는 양쪽이 동일한 타입이지만
+이것은 아니기 때문이다. cout과 another type.
+이들의 오버로딩은 global에서 진행된다.
+
+	<cout overloading>
+	// return type이 ostream인 이유는
+	// 그래야 그 뒤에 추가적인 << 연산자가 붙어도
+	// 연속해서 출력 가능하기 때문이다.
+	// 또한 같은 객체를 사용하는 게 효율적이므로 참조해주자.
+	std::ostream& operator << (좌항 std::ostream& , 우항)
+	{ code }
+
+	<cin overloading>
+	
+	std::istream&(or void i hope so) operator >> (std::istream& input, &우항)
+	{ code }
+
+	// 우항에 참조를 달아주는 이유는 같은 메모리에 데이터를 할당해야 하기 때문이다.
+-------------------------------------------------------------------------------------------------
+Friend function
+
+클래스의 바깥에 있는 함수이지만, 클래스의 private data member에 접근할 수 있다.
+(우리가 접근권한을 부여한다면)
+
+class MyClass{
+	friend void foo(~) { }
+	... ... 
+}
+
+void foo(~) { }
+
+int main( ) {
+	foo(~);
+}
+
+주의할 것은 friend 함수는 클래스 내부에 선언하지만
+이것은 해당 클래스에게 그 함수가 friend이므로 private 정보에 접근 가능하다는 것을
+알리는 의미이지. 클래스의 함수라는 뜻이 아니다.
+그러므로 friend function은 stand-alone function이다.
+cin, cout overloading도 클래스 바깥에서 선언해야 하고 private에 접근 못 하였지만
+friend를 이용하면 private 데이터에 접근할 수 있다.
+--------------------------------------------------------------------------------------------------
+class file across
+
+.cpp와 .h를 만들고
+클래스의 경우 양측에 다 배치하되, .h 쪽은 클래스 내부에 선언만 한다.
+
+.cpp 측은 클래스와 멤버 변수, modifier 등을 전부 제거해준다.(정신없으니까)
+그리고 함수의 앞에 어느 클래스의 함수인지 표시해준다.
+
+	int MyClass::my_foo(~)
+	{ code ... }
+
+* 구현부에 include를 할까, 선언부에 include를 할까... ㅇㅅㅇ...
+--------------------------------------------------------------------------------------------------
+Inheritence & Polymorphism
+
+<Inheritence>
+Base class -> derived classes
+
+	class SubClass : public Class
+	{ code ... }
+
+	public : 모두가 접근 가능하다.
+	private : 자식들도 접근 불가. 오직 자신만 접근 가능.
+	protected : protected로 선언된 멤버들은 자식들에게는 접근을 허가하지만
+	외부에서의 접근은 거부한다.
+
+	부모 클래스가 상속될 때 public Class이면, 멤버들은 자신들의 권한 그대로 상속된다.
+	protected Class이면, public은 protected로 바뀐다.
+	private Class이면, public과 protected는 private으로 바뀐다.
+
+생성자에 출력을 통해 확인해보면,
+객체는 생성될 때, 부모 생성자를 호출하고, 그 후에 자식 생성자를 호출한다.
+이것이 다형성의 중요 개념이 된다.
+
+<Polymorphism>
+Use modifier keyword 'virtual' enables us to override the function in the child
+
+If Main Class has a function Foo(~),
+and SubClass1 has override Foo to return 'A'; 2, 'B'
+and all these are logically MainClasses Siblings.
+So they can be declared by Main Class.
+But if we call Foo on them, the return will be different by there true nature.
+
+	Teacher teacher;
+	User& u = teacher;
+	// teacher는 본래 User가 부모이기 때문에 할당되도 문제 없다.
+
+	u.foo( );
+	// 사실상 u는 User Class이므로 이 Class에 foo라는 함수가 마찬가지로
+	// 존재해야 한다. 
+	// 상속되는 클래스들에서도 이 함수를 override할 수 있게 해줘야 하는데,
+	// 그 modifier가 virtual이다.
+
+-------------------------------------------------------------------------------------------------
+The topic that not mentioned on this Class
+
+-Keywords(modifiers)
+-Collections(STLs)
+-Debug
+-Software Testing
+-Dynamic Memory & Pointer

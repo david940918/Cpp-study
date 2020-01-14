@@ -129,8 +129,6 @@ int main() {
 	// or like this
 	if(test1.compare("what up:") == 0) std::cout << "same" << std::endl;
 
-
-
 	return 0;
 }
 

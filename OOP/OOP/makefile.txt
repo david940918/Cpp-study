@@ -1,0 +1,11 @@
+oop_prog: user.o oop.o
+	g++ user.o oop.o -o oop_prog
+
+user.o: user.cpp
+	g++ -c user.cpp
+
+oop.o: oop.cpp
+	g++ -c oop.cpp
+
+clean:
+	rm *.o oop_prog
